@@ -1,4 +1,5 @@
 import { style } from "@vanilla-extract/css";
+import { screen } from "@/styles";
 
 export const container = style({
   width: "100%",
@@ -13,6 +14,12 @@ export const header = style({
   width: "100%",
   minWidth: "320px",
   position: "fixed",
+
+  "@media": {
+    [`screen and (max-width: ${screen.phone})`]: {
+      display: "none",
+    },
+  },
 });
 
 export const wrapper = style({

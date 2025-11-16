@@ -1,5 +1,5 @@
 import { style, keyframes } from "@vanilla-extract/css";
-import { theme } from "@/styles";
+import { theme, screen } from "@/styles";
 
 const FadeInOut = keyframes({
   "0%, 80%, 100%": {
@@ -33,6 +33,11 @@ export const mainContent = style({
   display: "grid",
   gridTemplateColumns: "1fr 1fr",
   minHeight: "400px",
+  "@media": {
+    [`screen and (max-width: ${screen.tablet})`]: {
+      gridTemplateColumns: "1fr",
+    },
+  },
 });
 
 export const inputSection = style({
