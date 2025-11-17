@@ -1,8 +1,47 @@
+"use client";
+
 import Link from "next/link";
 import * as styles from "./style.css";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 
 export default function About() {
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const titleRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => new Set(prev).add(entry.target.id));
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -100px 0px",
+      }
+    );
+
+    const refs = [titleRef, aboutRef, ctaRef];
+    refs.forEach((ref) => {
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+    });
+
+    return () => {
+      refs.forEach((ref) => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
+      });
+    };
+  }, []);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -14,14 +53,32 @@ export default function About() {
         />
       </header>
       <main className={styles.contentSection}>
-        <div className={styles.titleWrapper}>
+        <div
+          ref={titleRef}
+          id="title-section"
+          className={`${styles.titleWrapper} ${styles.fadeInSection} ${
+            visibleSections.has("title-section") ? styles.visible : ""
+          }`}
+        >
           <h1 className={styles.mainTitle}>
             회사.팀플.스터디.모든 일상에서 쉽고 빠르게 <br /> 판교어 번역이 되는
             AI
           </h1>
-          <Image src="/icons.png" alt="Dedego icons" width={515} height={362} className={styles.icon}/>
+          <Image
+            src="/icons.png"
+            alt="Dedego icons"
+            width={515}
+            height={362}
+            className={styles.icon}
+          />
         </div>
-        <div className={styles.aboutWrapper}>
+        <div
+          ref={aboutRef}
+          id="about-section"
+          className={`${styles.aboutWrapper} ${styles.fadeInSection} ${
+            visibleSections.has("about-section") ? styles.visible : ""
+          }`}
+        >
           <h2 className={styles.sectionTitle}>데데고는 이렇게 만들어졌어요.</h2>
           <div className={styles.processFlow}>
             <div className={styles.processBox}>클라이언트 요청</div>
@@ -40,7 +97,13 @@ export default function About() {
             받은 응답을 다시 JSON으로 파싱하여 클라이언트에게 반환합니다.
           </p>
         </div>
-        <div className={styles.ctaSection}>
+        <div
+          ref={ctaRef}
+          id="cta-section"
+          className={`${styles.ctaSection} ${styles.fadeInSection} ${
+            visibleSections.has("cta-section") ? styles.visible : ""
+          }`}
+        >
           <h2 className={styles.ctaTitle}>
             판교 용어가 어렵다면 데데고에게 물어보세요.
           </h2>
@@ -48,7 +111,9 @@ export default function About() {
             데데고는 판교 전문 용어가 어려운 주니어 개발자들에게 필요한 AI 번역
             서비스입니다.
           </p>
-          <Link href={"/"} className={styles.ctaButton} target="_blank">시작하기</Link>
+          <Link href={"/"} className={styles.ctaButton} target="_blank">
+            시작하기
+          </Link>
         </div>
       </main>
       <footer className={styles.footer}>

@@ -1,6 +1,17 @@
 import { style } from "@vanilla-extract/css";
 import { screen, theme } from "@/styles";
 
+export const fadeInSection = style({
+  opacity: 0,
+  transform: "translateY(30px)",
+  transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
+});
+
+export const visible = style({
+  opacity: 1,
+  transform: "translateY(0)",
+});
+
 export const container = style({
   width: "100%",
   minHeight: "100vh",
@@ -26,8 +37,8 @@ export const contentSection = style({
   justifyContent: "center",
   color: "#FFFFFF",
   textAlign: "center",
-  padding: "60px 40px 80px",
-  gap: "150px",
+  padding: "70px 40px 80px",
+  gap: "130px",
 });
 
 export const titleWrapper = style({
