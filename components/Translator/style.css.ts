@@ -99,10 +99,7 @@ export const switchButton = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  transition: "opacity 0.2s, transform 0.2s",
-  ":hover": {
-    opacity: 0.7,
-  },
+  transition: "transform 0.2s",
   ":active": {
     transform: "scale(0.95)",
   },
@@ -113,8 +110,8 @@ export const switchButton = style({
 });
 
 export const switchIcon = style({
-  width: "24px",
-  height: "24px",
+  width: "18px",
+  height: "18px",
   objectFit: "contain",
 });
 
