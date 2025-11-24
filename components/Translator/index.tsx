@@ -1,10 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as styles from "./style.css";
 import { useTranslateMutation } from "@/service/translator/translator.mutation";
 import type { responseType } from "@/types";
 import { Toastify } from "../Toastify";
+
+const LoadingText = () => {
+  const loadingMessages = [
+    "평균 6초정도 걸려요 ㅠㅠ 조금만 기다려주세요",
+    "얼마 안남았어요!!",
+    "번역이 생각보다 어렵네요..",
+    "거의 다 됐어요!",
+    "열심히 번역하고 있어요!!",
+    "조금만 더 기다려주세요!",
+  ];
+
+  const [currentMessage, setCurrentMessage] = useState(
+    loadingMessages[Math.floor(Math.random() * loadingMessages.length)]
+  );
+  const [fadeIn, setFadeIn] = useState(false);
+
+  useEffect(() => {
+    setFadeIn(true);
+
+    const interval = setInterval(() => {
+      setFadeIn(false);
+
+      setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * loadingMessages.length);
+        setCurrentMessage(loadingMessages[randomIndex]);
+        setFadeIn(true);
+      }, 300);
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className={styles.loadingText} data-fade-in={fadeIn}>
+      {currentMessage}
+    </div>
+  );
+};
 
 export default function Translator() {
   const [inputText, setInputText] = useState("");
@@ -19,7 +57,7 @@ export default function Translator() {
 
   const handleTranslate = () => {
     if (!inputText.trim()) {
-      Toastify({content: "번역할 내용을 입력해주세요!", type: "info"})
+      Toastify({ content: "번역할 내용을 입력해주세요!", type: "info" });
       return;
     }
 
@@ -32,7 +70,7 @@ export default function Translator() {
           setTranslateResult(data);
         },
         onError: (error) => {
-          console.log(error)
+          console.log(error);
         },
       }
     );
@@ -40,11 +78,14 @@ export default function Translator() {
 
   const handleCopy = () => {
     if (!translateResult?.translated) {
-      Toastify({content: "복사할 번역 결과가 없습니다!", type: "info"})
+      Toastify({ content: "복사할 번역 결과가 없습니다!", type: "info" });
       return;
     }
     navigator.clipboard.writeText(translateResult.translated);
-    Toastify({content: "번역된 텍스트가 클립보드에 복사되었습니다!", type: "info"})
+    Toastify({
+      content: "번역된 텍스트가 클립보드에 복사되었습니다!",
+      type: "info",
+    });
   };
 
   return (
@@ -83,13 +124,7 @@ export default function Translator() {
               <div className={styles.languageLabel}>{oppositeLanguage}</div>
             </div>
             <div className={styles.outputText}>
-              {isPending ? (
-                <div className={styles.loader}>
-                  <div className={styles.loaderDot} />
-                </div>
-              ) : (
-                translateResult?.translated || ""
-              )}
+              {isPending ? <LoadingText /> : translateResult?.translated || ""}
             </div>
           </div>
         </div>
@@ -123,9 +158,13 @@ export default function Translator() {
             {isPending ? "번역 중..." : "번역하기"}
           </button>
           <div className={styles.iconButtons}>
-              <a href="https://github.com/Team-DeDeGo/DeDeGo-FE" target="_blank" className={styles.iconButton}>
-                <img src="/github.png" alt="GitHub" className={styles.icon} />
-              </a>
+            <a
+              href="https://github.com/Team-DeDeGo/DeDeGo-FE"
+              target="_blank"
+              className={styles.iconButton}
+            >
+              <img src="/github.png" alt="GitHub" className={styles.icon} />
+            </a>
             <button
               className={styles.iconButton}
               onClick={handleCopy}

@@ -145,6 +145,19 @@ export const outputText = style({
   overflowY: "auto",
 });
 
+export const loadingText = style({
+  fontSize: "16px",
+  color: "#666",
+  transition: "opacity 0.4s ease-in-out",
+  lineHeight: "1.6",
+  opacity: 0,
+  selectors: {
+    '&[data-fade-in="true"]': {
+      opacity: 1,
+    },
+  },
+});
+
 export const loader = style({
   display: "inline-flex",
   gap: "8px",
@@ -292,7 +305,7 @@ export const termOriginal = style({
 
 export const termMeaning = style({
   fontSize: "14px",
-  color: "#4B5563",
+  color: "#959595",
   lineHeight: "1.6",
   margin: 0,
 });
