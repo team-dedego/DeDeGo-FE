@@ -27,7 +27,7 @@ export const TranslatorFooter = ({
       </button>
       <div className={styles.iconButtons}>
         <a
-          href="https://github.com/Team-DeDeGo/DeDeGo-FE"
+          href="https://github.com/Team-DeDeGo"
           target="_blank"
           rel="noopener noreferrer"
           className={styles.iconButton}
