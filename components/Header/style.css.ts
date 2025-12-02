@@ -7,12 +7,6 @@ export const header = style({
   minWidth: "320px",
   position: "fixed",
   zIndex: 100,
-
-  "@media": {
-    [`screen and (max-width: ${screen.phone})`]: {
-      display: "none",
-    },
-  },
 });
 
 export const wrapper = style({
@@ -53,4 +47,10 @@ export const about = style({
   color: "#333333",
   cursor: "pointer",
   textDecoration: "none",
+
+  "@media": {
+    [`screen and (max-width: ${screen.phone})`]: {
+      display: "none",
+    },
+  },  
 });

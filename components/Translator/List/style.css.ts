@@ -19,6 +19,12 @@ export const termsSection = style({
   overflowY: "auto",
   flexShrink: 0,
   animation: `${slideUp} 0.3s ease-out`,
+
+    "@media": {
+    [`screen and (max-width: 768px)`]: {
+      display: "none",
+    },
+  },
 });
 
 export const termsTitle = style({

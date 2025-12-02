@@ -16,6 +16,12 @@ export const languageHeader = style({
   alignItems: "center",
   justifyContent: "space-between",
   flexShrink: 0,
+
+  "@media": {
+    [`screen and (max-width: 768px)`]: {
+      padding: "0",
+    },
+  },
 });
 
 export const languageLabel = style({
@@ -24,6 +30,12 @@ export const languageLabel = style({
   fontWeight: "500",
   color: "#333",
   lineHeight: 1.5,
+
+  "@media": {
+    [`screen and (max-width: 768px)`]: {
+      display: "none",
+    },
+  },
 });
 
 export const outputText = style({
