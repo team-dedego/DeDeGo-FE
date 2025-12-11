@@ -39,11 +39,11 @@ export const errorTitle = style({
   fontWeight: "600",
   color: "#1f2937",
   margin: 0,
-  "@media": {
-    "(max-width: 640px)": {
+    "@media": {
+    [`screen and (max-width: ${screen.phone})`]: {
       fontSize: "24px",
     },
-  },
+  },  
 });
 
 export const errorDescription = style({
