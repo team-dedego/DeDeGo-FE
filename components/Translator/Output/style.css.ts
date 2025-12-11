@@ -1,4 +1,4 @@
-import { style } from "@vanilla-extract/css";
+import { keyframes, style } from "@vanilla-extract/css";
 import { theme, screen } from "@/styles";
 
 export const outputSection = style({
@@ -48,4 +48,45 @@ export const outputText = style({
   padding: "30px",
   minHeight: 0,
   overflowY: "auto",
+});
+
+export const termWrapper = style({
+  position: "relative",
+  display: "inline-flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+});
+
+export const termLabel = style({
+  color: theme.primary,
+  fontWeight: "600",
+  lineHeight: "15px",
+  fontSize: "12px",
+  background: "none",
+  border: "none",
+  padding: 0,
+  cursor: "default",
+  textAlign: "left",
+  fontFamily: "inherit",
+  userSelect: "none",
+});
+
+const underlineAnimation = keyframes({
+  "0%": {
+    backgroundSize: "0% 2px",
+  },
+  "100%": {
+    backgroundSize: "100% 2px",
+  },
+});
+
+export const underlinedTerm = style({
+  backgroundImage: `linear-gradient(to right, ${theme.primary}, ${theme.primary})`,
+  backgroundPosition: "0 calc(100% - 0px)", 
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "0% 2px",
+  transition: "color 0.2s ease",
+  fontWeight: "bold",
+  animation: `${underlineAnimation} 0.4s ease-out forwards`,
+  display: "inline",
 });

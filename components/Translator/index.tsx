@@ -37,6 +37,7 @@ export default function Translator() {
             targetLang={targetLang}
             isPending={isPending}
             translatedText={translateResult?.translated || ""}
+            terms={translateResult?.terms ?? []}
           />
         </div>
 
