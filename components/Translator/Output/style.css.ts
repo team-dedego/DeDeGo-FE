@@ -80,6 +80,18 @@ const underlineAnimation = keyframes({
   },
 });
 
+const highlightPulse = keyframes({
+  "0%": {
+    backgroundColor: "transparent",
+  },
+  "50%": {
+    backgroundColor: "#FEF3C7",
+  },
+  "100%": {
+    backgroundColor: "transparent",
+  },
+});
+
 export const underlinedTerm = style({
   backgroundImage: `linear-gradient(to right, ${theme.primary}, ${theme.primary})`,
   backgroundPosition: "0 calc(100% - 0px)", 
@@ -89,4 +101,13 @@ export const underlinedTerm = style({
   fontWeight: "bold",
   animation: `${underlineAnimation} 0.4s ease-out forwards`,
   display: "inline",
+  cursor: "pointer",
+  
+  ":hover": {
+    opacity: 0.7,
+  },
+});
+
+export const termHighlight = style({
+  animation: `${highlightPulse} 1.5s ease-in-out`,
 });

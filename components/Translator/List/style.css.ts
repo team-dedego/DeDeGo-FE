@@ -19,8 +19,9 @@ export const termsSection = style({
   overflowY: "auto",
   flexShrink: 0,
   animation: `${slideUp} 0.3s ease-out`,
+  scrollBehavior: "smooth",
 
-    "@media": {
+  "@media": {
     [`screen and (max-width: ${screen.phone})`]: {
       display: "none",
     },
@@ -44,6 +45,7 @@ export const termsList = style({
 export const termItem = style({
   padding: "12px",
   borderRadius: "8px",
+  transition: "background-color 0.3s ease",
 });
 
 export const termHeader = style({
@@ -57,12 +59,6 @@ export const termWord = style({
   fontSize: "16px",
   fontWeight: "600",
   color: theme.primary,
-});
-
-export const termOriginal = style({
-  fontSize: "14px",
-  color: "#6B7280",
-  fontWeight: "500",
 });
 
 export const termMeaning = style({

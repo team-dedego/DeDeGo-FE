@@ -10,6 +10,7 @@ interface TranslatorOutputProps {
   isPending: boolean;
   translatedText: string;
   terms?: termType[];
+  onTermClick?: (index: number) => void;
 }
 
 export const TranslatorOutput = ({
@@ -17,6 +18,7 @@ export const TranslatorOutput = ({
   isPending,
   translatedText,
   terms = [],
+  onTermClick,
 }: TranslatorOutputProps) => {
   const formattedText = useMemo(() => {
     if (!translatedText || !terms.length) return translatedText;
@@ -24,7 +26,7 @@ export const TranslatorOutput = ({
     const termMap = new Map(
       terms
         .filter((term) => term.original)
-        .map((term) => [term.original.toLowerCase(), term])
+        .map((term, index) => [term.original.toLowerCase(), { ...term, index }])
     );
 
     if (!termMap.size) return translatedText;
@@ -34,19 +36,26 @@ export const TranslatorOutput = ({
     const parts = translatedText.split(regex);
 
     return parts.map((part, index) => {
-      const term = termMap.get(part.toLowerCase());
+      const termData = termMap.get(part.toLowerCase());
 
-      if (term) {
+      if (termData) {
         return (
           <span key={index} className={styles.termWrapper}>
-            <span className={styles.underlinedTerm}>{part}</span>
-            <button className={styles.termLabel}>{term.term}</button>
+            <span 
+              className={styles.underlinedTerm}
+              onMouseEnter={() => onTermClick?.(termData.index)}
+            >
+              {part}
+            </span>
+            <span className={styles.termLabel}>
+              {termData.term}
+            </span>
           </span>
         );
       }
       return part;
     });
-  }, [translatedText, terms]);
+  }, [translatedText, terms, onTermClick]);
 
   return (
     <div className={styles.outputSection}>
